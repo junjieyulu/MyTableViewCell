@@ -12,41 +12,30 @@
 #define PADDING 10
 
 @interface LFTableViewCell ()
-
+@property (nonatomic, readwrite, strong) UIImageView *iconImageView NS_AVAILABLE_IOS(3_0);   // default is nil.  image view will be created if necessary.
+@property (nonatomic, readwrite, strong) UILabel *titleLabel;
 
 @property (nonatomic, strong) UITextField *detailTextField;
 @property (nonatomic, strong) UILabel *detailLabel;
 @property (nonatomic, strong) UIImageView *accessoryImageView;
 
 
-@property (nonatomic, assign, readwrite) LFTableViewCellType cellType;
 
 @end
 
 @implementation LFTableViewCell
+{
+    LFTableViewCellType _cellType;
+}
 
 
 - (instancetype)initWithType:(LFTableViewCellType)type reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier];
-    
     if (self) {
-        self.cellType = type;
+        _cellType = type;
         [self setup];
     }
-    
     return self;
-}
-
-
-#pragma mark - Life Cycle
-
-- (void)awakeFromNib {
-    [super awakeFromNib];
-}
-
-
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
 }
 
 
@@ -69,7 +58,7 @@
         make.centerY.mas_equalTo(weakSelf.contentView.mas_centerY);
     }];
     
-    switch (self.cellType) {
+    switch (_cellType) {
         case LFTableViewCellTypeDefault:
             break;
         case LFTableViewCellTypeDetail:
@@ -103,6 +92,7 @@
     if (!_iconImageView) {
         _iconImageView = [[UIImageView alloc] init];
         _iconImageView.backgroundColor = [UIColor yellowColor];
+        [self.contentView addSubview:_iconImageView];
     }
     return _iconImageView;
 }
