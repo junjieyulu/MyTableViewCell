@@ -9,7 +9,7 @@
 #import "LFTableViewCell.h"
 #import <Masonry.h>
 
-#define PADDING 10
+#define PADDING 15
 
 @interface LFTableViewCell ()
 @property (nonatomic, readwrite, strong) UIImageView *iconImageView NS_AVAILABLE_IOS(3_0);   // default is nil.  image view will be created if necessary.
@@ -41,23 +41,9 @@
 
 #pragma mark - Private Methods
 
-
 - (void)setup {
-    [self.contentView addSubview:self.iconImageView];
-    [self.contentView addSubview:self.titleLabel];
     __weak typeof(self) weakSelf = self;
-    [self.iconImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(@PADDING);
-        make.top.equalTo(@PADDING);
-        make.bottom.equalTo(@-PADDING);
-        make.width.mas_equalTo(weakSelf.iconImageView.mas_height);
-    }];
-    [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.left.mas_equalTo(weakSelf.iconImageView.mas_right).offset(PADDING);
-        make.left.equalTo(@50);
-        make.centerY.mas_equalTo(weakSelf.contentView.mas_centerY);
-    }];
-    
+
     switch (_cellType) {
         case LFTableViewCellTypeDefault:
             break;
@@ -73,7 +59,6 @@
         default:
             break;
     }
-//    [self.contentView addSubview:self.detailLabel];
     [self.contentView addSubview:self.accessoryImageView];
     [self.accessoryImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(@-PADDING);
@@ -93,6 +78,14 @@
         _iconImageView = [[UIImageView alloc] init];
         _iconImageView.backgroundColor = [UIColor yellowColor];
         [self.contentView addSubview:_iconImageView];
+        __weak typeof(self) weakSelf = self;
+        [_iconImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(@PADDING);
+            make.centerY.mas_equalTo(weakSelf.mas_centerY);
+            if (_titleLabel) {
+                make.right.mas_equalTo(weakSelf.titleLabel.mas_left).offset(-PADDING).priorityHigh();
+            }
+        }];
     }
     return _iconImageView;
 }
@@ -102,6 +95,15 @@
     if (!_titleLabel) {
         _titleLabel = [[UILabel alloc] init];
         _titleLabel.backgroundColor = [UIColor yellowColor];
+        [self.contentView addSubview:_titleLabel];
+        __weak typeof(self) weakSelf = self;
+        [_titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(@PADDING).priorityLow();
+            make.centerY.mas_equalTo(weakSelf.contentView.mas_centerY);
+            if (_iconImageView) {
+                make.left.mas_equalTo(weakSelf.iconImageView.mas_right).offset(PADDING).priorityHigh();
+            }
+        }];
     }
     return _titleLabel;
 }

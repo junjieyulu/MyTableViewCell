@@ -63,6 +63,10 @@
 
 #pragma mark -- UITableViewDelegate
 
+//- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+//    return 44.0f;
+//}
+
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     LFAboutViewController *aboutViewController = [[LFAboutViewController alloc] init];
@@ -87,17 +91,18 @@
         }
 //        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         cell.titleLabel.text = [self.dataArr objectAtIndex:indexPath.row];
-        cell.iconImageView.image = [UIImage imageNamed:@"icon_required"];
+        cell.iconImageView.image = [UIImage imageNamed:@"mine_settings"];
         return cell;
     }
     
     static NSString *cellIdentifier = @"cellIdentifier";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellIdentifier];
     }
-    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+//    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     cell.textLabel.text = [self.dataArr objectAtIndex:indexPath.row];
+    cell.detailTextLabel.text  =@"123456";
     cell.imageView.image = indexPath.row == 1 ? [UIImage imageNamed:@"mine_settings"] : [UIImage imageNamed:@"icon_required"];
     return cell;
 }
