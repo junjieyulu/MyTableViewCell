@@ -24,7 +24,7 @@
 }
 
 - (instancetype)initWithType:(LFTableViewCellType)type reuseIdentifier:(NSString *)reuseIdentifier {
-    self = [super initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:reuseIdentifier];
+    self = [super initWithStyle:( type != LFTableViewCellTypeSwitch) ? UITableViewCellStyleValue1 : UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier];
     if (self) {
         _cellType = type;
     }
