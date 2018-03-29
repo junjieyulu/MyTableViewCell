@@ -9,7 +9,7 @@
 #import "LFTableViewCell.h"
 #import <Masonry.h>
 
-#define PADDING 10
+#define PADDING 15
 
 @interface LFTableViewCell ()
 @property (nonatomic, readwrite, strong) UIImageView *iconImageView NS_AVAILABLE_IOS(3_0);   // default is nil.  image view will be created if necessary.
@@ -18,8 +18,6 @@
 @property (nonatomic, strong) UITextField *detailTextField;
 @property (nonatomic, strong) UILabel *detailLabel;
 @property (nonatomic, strong) UIImageView *accessoryImageView;
-
-
 
 @end
 
@@ -43,18 +41,20 @@
 
 
 - (void)setup {
-    [self.contentView addSubview:self.iconImageView];
+//    [self.contentView addSubview:self.iconImageView];
     [self.contentView addSubview:self.titleLabel];
+    
     __weak typeof(self) weakSelf = self;
-    [self.iconImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(@PADDING);
-        make.top.equalTo(@PADDING);
-        make.bottom.equalTo(@-PADDING);
-        make.width.mas_equalTo(weakSelf.iconImageView.mas_height);
-    }];
+//    [self.iconImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.left.equalTo(@PADDING);
+//        make.centerY.mas_equalTo(weakSelf.contentView.mas_centerY);
+////        make.top.equalTo(@PADDING);
+////        make.bottom.equalTo(@-PADDING);
+////        make.width.mas_equalTo(weakSelf.iconImageView.mas_height);
+//    }];
     [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.left.mas_equalTo(weakSelf.iconImageView.mas_right).offset(PADDING);
-        make.left.equalTo(@50);
+        make.left.equalTo(@PADDING).priorityLow();
+//        make.left.mas_equalTo(weakSelf.iconImageView.mas_right).offset(offset);
         make.centerY.mas_equalTo(weakSelf.contentView.mas_centerY);
     }];
     
@@ -93,6 +93,14 @@
         _iconImageView = [[UIImageView alloc] init];
         _iconImageView.backgroundColor = [UIColor yellowColor];
         [self.contentView addSubview:_iconImageView];
+        __weak typeof(self) weakSelf = self;
+        [_iconImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(@PADDING);
+            make.centerY.mas_equalTo(weakSelf.contentView.mas_centerY);
+        }];
+        [_titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.mas_equalTo(weakSelf.iconImageView.mas_right).offset(weakSelf.iconImageView.image == nil ? 0 : PADDING);
+        }];
     }
     return _iconImageView;
 }

@@ -86,8 +86,11 @@
             cell = [[LFTableViewCell alloc] initWithType:LFTableViewCellTypeDefault reuseIdentifier:cellIdentifier];
         }
 //        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        cell.iconImageView.image = [UIImage imageNamed:@"mine_settings"];
+//        cell.iconImageView.image = nil;
+
         cell.titleLabel.text = [self.dataArr objectAtIndex:indexPath.row];
-        cell.iconImageView.image = [UIImage imageNamed:@"icon_required"];
+
         return cell;
     }
     
@@ -98,7 +101,7 @@
     }
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     cell.textLabel.text = [self.dataArr objectAtIndex:indexPath.row];
-    cell.imageView.image = indexPath.row == 1 ? [UIImage imageNamed:@"mine_settings"] : [UIImage imageNamed:@"icon_required"];
+//    cell.imageView.image = indexPath.row == 1 ? [UIImage imageNamed:@"mine_settings"] : [UIImage imageNamed:@"icon_required"];
     return cell;
 }
 

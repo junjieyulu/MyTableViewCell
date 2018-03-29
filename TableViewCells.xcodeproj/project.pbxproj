@@ -6,6 +6,20 @@
 	objectVersion = 48;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		547262B4206D24E000C987A8 /* OCLint */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 547262B7206D24E000C987A8 /* Build configuration list for PBXAggregateTarget "OCLint" */;
+			buildPhases = (
+				547262B8206D24E500C987A8 /* ShellScript */,
+			);
+			dependencies = (
+			);
+			name = OCLint;
+			productName = OCLint;
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		65A37BFB9E500ECD98018F06 /* libPods-TableViewCells.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 89C1B8D9A6ADF151A079AD0E /* libPods-TableViewCells.a */; };
 		9B9594361FCD50DB000A7C48 /* LFTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B9594351FCD50DB000A7C48 /* LFTableViewCell.m */; };
@@ -152,6 +166,10 @@
 				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = Lee;
 				TargetAttributes = {
+					547262B4206D24E000C987A8 = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+					};
 					9BDF56051FC57B8F00B07EBF = {
 						CreatedOnToolsVersion = 9.0;
 						ProvisioningStyle = Automatic;
@@ -172,6 +190,7 @@
 			projectRoot = "";
 			targets = (
 				9BDF56051FC57B8F00B07EBF /* TableViewCells */,
+				547262B4206D24E000C987A8 /* OCLint */,
 			);
 		};
 /* End PBXProject section */
@@ -204,6 +223,19 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TableViewCells/Pods-TableViewCells-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		547262B8206D24E500C987A8 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "source ~/.bash_profile\ncd ${SRCROOT}\nxcodebuild -showsdks\nxcodebuild -list\nxcodebuild -workspace TableViewCells.xcworkspace -scheme TableViewCells clean\nxcodebuild -workspace TableViewCells.xcworkspace -scheme TableViewCells -sdk iphonesimulator11.2 -configuration   Debug  CLANG_ENABLE_MODULE_DEBUGGING=NO CODE_SIGN_IDENTITY=\"\" CODE_SIGNING_REQUIRED=NO ENABLE_BITCODE=NO COMPILER_INDEX_STORE_ENABLE=NO build| xcpretty -r json-compilation-database -o compile_commands.json\noclint-json-compilation-database -e Pods -- -report-type html -o oclint.html\n\n\n\n";
 		};
 		7D4663DCE3ADFD3F0156BE3B /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -278,6 +310,22 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		547262B5206D24E000C987A8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		547262B6206D24E000C987A8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		9BDF561A1FC57B8F00B07EBF /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -415,6 +463,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		547262B7206D24E000C987A8 /* Build configuration list for PBXAggregateTarget "OCLint" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				547262B5206D24E000C987A8 /* Debug */,
+				547262B6206D24E000C987A8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		9BDF56011FC57B8F00B07EBF /* Build configuration list for PBXProject "TableViewCells" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
