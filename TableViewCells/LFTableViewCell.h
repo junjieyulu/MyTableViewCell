@@ -10,16 +10,15 @@
 NS_ASSUME_NONNULL_BEGIN
 
 typedef NS_ENUM(NSInteger, LFTableViewCellType) {
-    LFTableViewCellTypeDefault,//默认从0开始
+    LFTableViewCellTypeDefault,//默认从0开始, 等同于UITableViewCellStyleValue1
     LFTableViewCellTypeTextField,
-    LFTableViewCellTypeDetail,
     LFTableViewCellTypeSwitch
 };
 
 @interface LFTableViewCell : UITableViewCell
 
-@property (nonatomic, readonly, strong, nullable) UIImageView *iconImageView NS_AVAILABLE_IOS(3_0);   // default is nil.  image view will be created if necessary.
-@property (nonatomic, readonly, strong, nullable) UILabel *titleLabel;
+@property (nonatomic, readonly, strong, nullable) UITextField *detailTextField;// default is nil.  detail textField will be created if necessary.
+@property (nonatomic, readonly, strong, nullable) UISwitch *detailSwitch;// default is nil.  detail switch will be created if necessary.
 
 /**
  LFTableViewCell 初始化方法

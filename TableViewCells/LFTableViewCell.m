@@ -12,12 +12,14 @@
 #define PADDING 15
 
 @interface LFTableViewCell ()
-@property (nonatomic, readwrite, strong) UIImageView *iconImageView NS_AVAILABLE_IOS(3_0);   // default is nil.  image view will be created if necessary.
-@property (nonatomic, readwrite, strong) UILabel *titleLabel;
 
 @property (nonatomic, strong) UITextField *detailTextField;
+<<<<<<< HEAD
 @property (nonatomic, strong) UILabel *detailLabel;
 @property (nonatomic, strong) UIImageView *accessoryImageView;
+=======
+@property (nonatomic, strong) UISwitch *detailSwitch;
+>>>>>>> 2f39459eb9be1fea3d9a89d86f6d733cbc74321d
 
 @end
 
@@ -26,16 +28,15 @@
     LFTableViewCellType _cellType;
 }
 
-
 - (instancetype)initWithType:(LFTableViewCellType)type reuseIdentifier:(NSString *)reuseIdentifier {
-    self = [super initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier];
+    self = [super initWithStyle:( type != LFTableViewCellTypeSwitch) ? UITableViewCellStyleValue1 : UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier];
     if (self) {
         _cellType = type;
-        [self setup];
     }
     return self;
 }
 
+<<<<<<< HEAD
 
 #pragma mark - Private Methods
 
@@ -83,11 +84,13 @@
     }];
 }
 
+=======
+>>>>>>> 2f39459eb9be1fea3d9a89d86f6d733cbc74321d
 #pragma mark - Public Methods
-
 
 #pragma mark - Getters and Setters
 
+<<<<<<< HEAD
 - (UIImageView *)iconImageView {
     if (!_iconImageView) {
         _iconImageView = [[UIImageView alloc] init];
@@ -115,30 +118,40 @@
 }
 
 
+=======
+>>>>>>> 2f39459eb9be1fea3d9a89d86f6d733cbc74321d
 - (UITextField *)detailTextField {
-    if (!_detailTextField) {
+    if (!_detailTextField & (_cellType == LFTableViewCellTypeTextField)) {
         _detailTextField = [[UITextField alloc] init];
-        _detailTextField.backgroundColor = [UIColor grayColor];
+        _detailTextField.textAlignment = NSTextAlignmentRight;
+        [self.contentView addSubview:_detailTextField];
+        __weak typeof(self) weakSelf = self;
+        [_detailTextField mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.right.equalTo(@-PADDING).priorityLow();
+            if (self.accessoryType) {
+                make.right.equalTo(@0).priorityHigh();
+            }
+            make.centerY.mas_equalTo(weakSelf.contentView.mas_centerY);
+        }];
     }
     return _detailTextField;
 }
 
 
-- (UILabel *)detailLabel {
-    if (!_detailLabel) {
-        _detailLabel = [[UILabel alloc] init];
-        _detailLabel.backgroundColor = [UIColor greenColor];
+- (UISwitch *)detailSwitch {
+    if (!_detailSwitch & (_cellType == LFTableViewCellTypeSwitch)) {
+        _detailSwitch = [[UISwitch alloc] init];
+        [self.contentView addSubview:_detailSwitch];
+        __weak typeof(self) weakSelf = self;
+        [_detailSwitch mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.right.equalTo(@-PADDING).priorityLow();
+            if (self.accessoryType) {
+                make.right.equalTo(@0).priorityHigh();
+            }
+            make.centerY.mas_equalTo(weakSelf.contentView.mas_centerY);
+        }];
     }
-    return _detailLabel;
-}
-
-
-- (UIImageView *)accessoryImageView {
-    if (!_accessoryImageView) {
-        _accessoryImageView = [[UIImageView alloc] init];
-        _accessoryImageView.backgroundColor = [UIColor blueColor];
-    }
-    return _accessoryImageView;
+    return _detailSwitch;
 }
 
 @end

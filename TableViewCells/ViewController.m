@@ -49,6 +49,7 @@
         _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
         _tableView.delegate = self;
         _tableView.dataSource = self;
+//        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     }
     return _tableView;
 }
@@ -62,6 +63,10 @@
 }
 
 #pragma mark -- UITableViewDelegate
+
+//- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+//    return 44.0f;
+//}
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -83,25 +88,40 @@
         static NSString *cellIdentifier = @"FirstCell";
         LFTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
         if (!cell) {
-            cell = [[LFTableViewCell alloc] initWithType:LFTableViewCellTypeDefault reuseIdentifier:cellIdentifier];
+            cell = [[LFTableViewCell alloc] initWithType:LFTableViewCellTypeSwitch reuseIdentifier:cellIdentifier];
         }
-//        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        cell.iconImageView.image = [UIImage imageNamed:@"mine_settings"];
-//        cell.iconImageView.image = nil;
-
-        cell.titleLabel.text = [self.dataArr objectAtIndex:indexPath.row];
-
+//<<<<<<< HEAD
+////        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+//        cell.iconImageView.image = [UIImage imageNamed:@"mine_settings"];
+////        cell.iconImageView.image = nil;
+//
+//        cell.titleLabel.text = [self.dataArr objectAtIndex:indexPath.row];
+//
+//=======
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        cell.textLabel.text = [self.dataArr objectAtIndex:indexPath.row];
+        cell.imageView.image = [UIImage imageNamed:@"icon_required"];
+//        cell.detailTextLabel.text =  @"厉害";
+        cell.detailTextField.text = @"12345678";
+        cell.detailSwitch.on = YES;
+//        cell.detailSwitch
+//>>>>>>> 2f39459eb9be1fea3d9a89d86f6d733cbc74321d
         return cell;
     }
     
     static NSString *cellIdentifier = @"cellIdentifier";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellIdentifier];
     }
-    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    cell.accessoryType = indexPath.row == 1 ? UITableViewCellAccessoryNone : UITableViewCellAccessoryDisclosureIndicator;
     cell.textLabel.text = [self.dataArr objectAtIndex:indexPath.row];
-//    cell.imageView.image = indexPath.row == 1 ? [UIImage imageNamed:@"mine_settings"] : [UIImage imageNamed:@"icon_required"];
+//<<<<<<< HEAD
+////    cell.imageView.image = indexPath.row == 1 ? [UIImage imageNamed:@"mine_settings"] : [UIImage imageNamed:@"icon_required"];
+//=======
+    cell.detailTextLabel.text  = @"123456";
+    cell.imageView.image = indexPath.row == 1 ? [UIImage imageNamed:@"mine_settings"] : [UIImage imageNamed:@"icon_required"];
+//>>>>>>> 2f39459eb9be1fea3d9a89d86f6d733cbc74321d
     return cell;
 }
 
